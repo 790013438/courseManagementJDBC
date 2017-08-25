@@ -5,6 +5,10 @@ public class Course {
     private String name;
     private int credits;
     
+    public boolean isValidCourse() {
+        return name !=null && credits !=0;
+    }
+    
     public int getId() {
         return id;
     }
