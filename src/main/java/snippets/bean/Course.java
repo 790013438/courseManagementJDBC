@@ -1,9 +1,17 @@
 package snippets.bean;
 
+import java.sql.SQLException;
+
+import snippets.dao.CourseDAO;
+
 public class Course {
     private int id;
     private String name;
     private int credits;
+
+    public void addCourse() throws SQLException {
+        CourseDAO.addCourse(this);
+    }
     
     public boolean isValidCourse() {
         return name !=null && credits !=0;
