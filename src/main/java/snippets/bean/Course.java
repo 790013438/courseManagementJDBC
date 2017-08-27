@@ -1,5 +1,6 @@
 package snippets.bean;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
 import snippets.dao.CourseDAO;
@@ -14,7 +15,7 @@ public class Course {
     }
     
     public boolean isValidCourse() {
-        return name !=null && credits !=0;
+        return name != null && credits !=0;
     }
     
     public int getId() {
@@ -27,7 +28,12 @@ public class Course {
         return name;
     }
     public void setName(String name) {
-        this.name = name;
+        try {
+            this.name = new String(name.getBytes("ISO8859_1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     public int getCredits() {
         return credits;
