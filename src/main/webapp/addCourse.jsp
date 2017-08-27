@@ -14,7 +14,6 @@
             <jsp:useBean id="courseBean" class="snippets.bean.Course">
                 <c:catch var="beanStorageException">
                     <jsp:setProperty name="courseBean" property="*"/>
-                    <jsp:setProperty name="courseBean" property="name" value="<%=new String(request.getParameter(\"name\").getBytes(\"ISO8859_1\"), \"utf-8\") %>"/>
                 </c:catch>
             </jsp:useBean>
             <c:choose>
