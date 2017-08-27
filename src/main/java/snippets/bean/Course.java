@@ -14,7 +14,7 @@ public class Course {
     }
     
     public boolean isValidCourse() {
-        return name !=null && credits !=0;
+        return name != null && credits !=0;
     }
     
     public int getId() {
