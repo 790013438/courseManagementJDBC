@@ -1,8 +1,8 @@
 package snippets.bean;
 
 public class Person {
-    private int id;
-    private String name;
+    protected int id;
+    protected String name;
     
     public int getId() {
         return id;
