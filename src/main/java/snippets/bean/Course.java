@@ -1,7 +1,7 @@
 package snippets.bean;
 
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.List;
 
 import snippets.dao.CourseDAO;
 
@@ -9,6 +9,11 @@ public class Course {
     private int id;
     private String name;
     private int credits;
+    private Teacher teacher;
+
+    public List<Course> getCourses() throws SQLException {
+        return CourseDAO.getCourses();
+    }
 
     public void addCourse() throws SQLException {
         CourseDAO.addCourse(this);
@@ -28,17 +33,34 @@ public class Course {
         return name;
     }
     public void setName(String name) {
-        try {
-            this.name = new String(name.getBytes("ISO8859_1"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        this.name = name;
     }
     public int getCredits() {
         return credits;
     }
     public void setCredits(int credits) {
         this.credits = credits;
+    }
+
+    /**
+     * @return the teacher
+     */
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    /**
+     * @param teacher the teacher to set
+     */
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Course [id=" + id + ", name=" + name + ", credits=" + credits + ", teacher=" + teacher + "]";
     }
 }
