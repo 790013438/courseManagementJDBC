@@ -5,11 +5,70 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import snippets.bean.Course;
+import snippets.bean.Teacher;
 import snippets.db.connection.DatabaseConnectionFactory;
 
 public class CourseDAO {
+    public static List<Course> getCourses() throws SQLException {
+        //get connection from connection pool
+        Connection connection = DatabaseConnectionFactory.getConnectionFactory().getConnection();
+
+        List<Course> courseArrayList = new ArrayList<Course>();
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.createStatement();
+            
+            //create SQL statement using left outer join
+           StringBuilder stringBuilder = new StringBuilder("select course.id as courseId, course.name as courseName,")
+               .append("course.credits as credits, Teacher.id as teacherId, Teacher.name as name,")
+               .append("Teacher.designation as designation ") 
+               .append(" from Course left outer join Teacher on ")
+               .append("course.Teacher_id = Teacher.id ")
+               .append("order by course.name");
+
+           //execute the query
+           resultSet = statement.executeQuery(stringBuilder.toString());
+
+           //iterate over result set and create Course objects
+           //add them to course list
+           while (resultSet.next()) {
+               Course course = new Course();
+               course.setId(resultSet.getInt("courseId"));
+               course.setName(resultSet.getString("courseName"));
+               course.setCredits(resultSet.getInt("credits"));
+               courseArrayList.add(course);
+
+               int teacherId = resultSet.getInt("teacherId");
+               //check whether teacher id was null in the table
+               if (resultSet.wasNull()) {
+                   //no teacher set for this course.
+                   continue;
+               }
+               Teacher teacher = new Teacher();
+               teacher.setId(teacherId);
+               teacher.setName("name");
+               teacher.setDesignation(resultSet.getString("designation"));
+               course.setTeacher(teacher);
+           }
+           return courseArrayList;
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch (SQLException e) {
+            }
+            try {
+                if (statement != null) statement.close();
+            } catch (SQLException e) {}
+            try {
+                connection.close();
+            } catch (SQLException e) {}
+        }
+    }
     public static void addCourse(Course course) throws SQLException {
         //get connection from connection pool
         Connection connection = DatabaseConnectionFactory.getConnectionFactory().getConnection();
