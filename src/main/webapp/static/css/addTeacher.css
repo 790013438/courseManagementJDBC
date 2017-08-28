@@ -1,0 +1,28 @@
+.main-container { max-width: 980px; margin: auto; padding: 10px; background: #999; border-radius: 0 0 3px 3px; }
+
+.contact-form { width: 540px; margin: 0 auto 20px; padding: 20px; }
+@media (max-width: 37.5em) { .contact-form { width: 100%; } }
+.contact-form h2 { margin-top: 0; }
+.contact-form label, .contact-form buttton { display: block; }
+.contact-form .comments { height: 100px; }
+.contact-form .flex-container { justify-content: space-between; }
+@media (max-width: 37.5em) { .contact-form .flex-container { display: flex; } }
+@media (max-width: 25em) { .contact-form .flex-container { display: block; } }
+.contact-form .label-col { width: 48%; }
+@media (max-width: 25em) { .contact-form .label-col { width: 100%; } }
+
+.field, .comments { width: 100%; margin-bottom: 10px; padding: 5px; }
+@media (max-width: 26.25em) { .field, .comments { width: 100%; } }
+
+.contact-form { border: white 1px solid; border-radius: 3px; background: rgba(255, 255, 255, 0.1); }
+
+.flex-container { dispaly: flex; }
+@media (max-width: 37.5em) { .flex-container { display: block; } }
+
+*, *:before, *:after { box-sizing: border-box; }
+
+body { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; }
+
+blockquote { font-style: italic; }
+
+/*# sourceMappingURL=addTeacher.css.map */
