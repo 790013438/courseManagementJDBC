@@ -13,6 +13,8 @@
             <jsp:useBean id="teacherBean" class="snippets.bean.Teacher">
                 <c:catch var="beanStorageException">
                     <jsp:setProperty name="teacherBean" property="*"/>
+                    <jsp:setProperty name="teacherBean" property="name" value="<%= new String(request.getParameter(\"name\").getBytes(\"ISO8859_1\"), \"UTF-8\")%>"/>
+                    <jsp:setProperty name="teacherBean" property="designation" value="<%= new String(request.getParameter(\"designation\").getBytes(\"ISO8859_1\"), \"UTF-8\")%>"/>
                 </c:catch>
             </jsp:useBean>
             <c:choose>
