@@ -10,6 +10,7 @@ public class Course {
     private String name;
     private int credits;
     private Teacher teacher;
+    private int teacherId;
 
     public List<Course> getCourses() throws SQLException {
         return CourseDAO.getCourses();
@@ -55,6 +56,10 @@ public class Course {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
+    
+    public int getTeacherId() {
+        return teacherId;
+    }
 
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
@@ -62,5 +67,9 @@ public class Course {
     @Override
     public String toString() {
         return "Course [id=" + id + ", name=" + name + ", credits=" + credits + ", teacher=" + teacher + "]";
+    }
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
 }

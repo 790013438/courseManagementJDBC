@@ -10,6 +10,13 @@
     <body>
         <c:set var="errMsg" value="${null}"/>
         <c:set var="displayForm" value="${true}"/>
+        <jsp:useBean id="teacherBean" class="snippets.bean.Teacher"/>
+        <c:catch var="teacherBeanErr">
+            <c:set var="teachers" value="${teacherBean.getTeachers()}"/>
+        </c:catch>
+        <c:if test="${teacherBeanErr} != null">
+            <c:set var="errMsg" value="${teacherBeanErr.message}"/>
+        </c:if>
         <c:if test="${\"POST\".equalsIgnoreCase(pageContext.request.method) && pageContext.request.getParameter(\"submit\") != null}">
             <jsp:useBean id="courseBean" class="snippets.bean.Course">
                 <c:catch var="beanStorageException">
@@ -44,12 +51,18 @@
         </c:if>
         <div class="main-container flex-container">
             <div class="article-container flex-container" style="width:100%">
-		        <form method="post" class="main-content">
-		            <div><p style="width:12%;display:inline-block;">Name: </p><input type="text" name="name"/></div>
-		            <div><p style="width:12%;display:inline-block;">Credits: </p><input type="text" name="credits"/></div>
-		            <button type="submit" name="submit">Add</button>
-		        </form>
-	        </div>
+                <form method="post" class="main-content">
+                    <div><p style="width:12%;display:inline-block;">Name: </p><input type="text" name="name"/></div>
+                    <div><p style="width:12%;display:inline-block;">Credits: </p><input type="text" name="credits"/></div>
+                    <div><p style="width:12%;display:inline-block;">Teacher: </p><select name="teacherId">
+                            <c:forEach items="${teachers}" var="teacher">
+                                <option value="${teacher.id}">${teacher.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <button type="submit" name="submit">Add</button>
+                </form>
+            </div>
         </div>
     </body>
 </html>
