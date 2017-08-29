@@ -20,7 +20,17 @@
                     <c:set var="errMsg" value="Invalid teacher details. Please try again"/>
                 </c:when>
                 <c:otherwise>
-                    <c:redirect url="listTeacher.jsp"/>
+                    <c:catch var="addTeacherException">
+                        ${teacherBean.addTeacher()}
+                    </c:catch>
+                    <c:choose>
+                        <c:when test="${addTeacherException != null}">
+                            <c:set var="errMsg" value="${addTeacherException.message}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:redirect url="listTeacher.jsp"/>
+                        </c:otherwise>
+                    </c:choose>
                 </c:otherwise>
             </c:choose>
         </c:if>
@@ -39,7 +49,7 @@
                         <label class="label-col">Name: <input type="text" name="name" class="field"></label>
                     </div>
                     <div class="flex-container">
-                        <label class="label-col">Credits: <input type="text" name="designation" class="field"/></label>
+                        <label class="label-col">designation: <input type="text" name="designation" class="field"/></label>
                     </div>
                     <button type="submit" name="submit">Add</button>
                 </form>
