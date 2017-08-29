@@ -52,10 +52,11 @@ public class CourseDAO {
                }
                Teacher teacher = new Teacher();
                teacher.setId(teacherId);
-               teacher.setName("name");
+               teacher.setName(resultSet.getString("name"));
                teacher.setDesignation(resultSet.getString("designation"));
                course.setTeacher(teacher);
            }
+           
            return courseArrayList;
         } finally {
             try {
