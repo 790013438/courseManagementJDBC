@@ -23,41 +23,41 @@ public class CourseDAO {
         ResultSet resultSet = null;
         try {
             statement = connection.createStatement();
-            
+
             //create SQL statement using left outer join
-           StringBuilder stringBuilder = new StringBuilder("select course.id as courseId, course.name as courseName,")
-               .append("course.credits as credits, Teacher.id as teacherId, Teacher.name as name,")
-               .append("Teacher.designation as designation ") 
-               .append(" from Course left outer join Teacher on ")
-               .append("course.Teacher_id = Teacher.id ")
-               .append("order by course.name");
+            StringBuilder stringBuilder = new StringBuilder("select course.id as courseId, course.name as courseName,")
+                .append("course.credits as credits, Teacher.id as teacherId, Teacher.name as name,")
+                .append("Teacher.designation as designation ") 
+                .append(" from Course left outer join Teacher on ")
+                .append("course.Teacher_id = Teacher.id ")
+                .append("order by course.name");
 
-           //execute the query
-           resultSet = statement.executeQuery(stringBuilder.toString());
+            //execute the query
+            resultSet = statement.executeQuery(stringBuilder.toString());
 
-           //iterate over result set and create Course objects
-           //add them to course list
-           while (resultSet.next()) {
-               Course course = new Course();
-               course.setId(resultSet.getInt("courseId"));
-               course.setName(resultSet.getString("courseName"));
-               course.setCredits(resultSet.getInt("credits"));
-               courseArrayList.add(course);
+            //iterate over result set and create Course objects
+            //add them to course list
+            while (resultSet.next()) {
+                Course course = new Course();
+                course.setId(resultSet.getInt("courseId"));
+                course.setName(resultSet.getString("courseName"));
+                course.setCredits(resultSet.getInt("credits"));
+                courseArrayList.add(course);
 
-               int teacherId = resultSet.getInt("teacherId");
-               //check whether teacher id was null in the table
-               if (resultSet.wasNull()) {
-                   //no teacher set for this course.
-                   continue;
-               }
-               Teacher teacher = new Teacher();
-               teacher.setId(teacherId);
-               teacher.setName(resultSet.getString("name"));
-               teacher.setDesignation(resultSet.getString("designation"));
-               course.setTeacher(teacher);
-           }
-           
-           return courseArrayList;
+                int teacherId = resultSet.getInt("teacherId");
+                //check whether teacher id was null in the table
+                if (resultSet.wasNull()) {
+                    //no teacher set for this course.
+                    continue;
+                }
+                Teacher teacher = new Teacher();
+                teacher.setId(teacherId);
+                teacher.setName(resultSet.getString("name"));
+                teacher.setDesignation(resultSet.getString("designation"));
+                course.setTeacher(teacher);
+            }
+
+            return courseArrayList;
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
