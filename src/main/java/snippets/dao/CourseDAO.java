@@ -14,7 +14,14 @@ import snippets.bean.Teacher;
 import snippets.db.connection.DatabaseConnectionFactory;
 
 public class CourseDAO {
-    public static List<Course> getCourses() throws SQLException {
+    public void enrollStudentInCourse(int courseId, int studentId) {
+    }
+
+    public int getNumStudentsInCourse(int id) throws SQLException {
+        return -1;
+    }
+
+    public List<Course> getCourses() throws SQLException {
         //get connection from connection pool
         Connection connection = DatabaseConnectionFactory.getConnectionFactory().getConnection();
 

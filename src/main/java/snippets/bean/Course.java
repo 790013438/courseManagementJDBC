@@ -11,9 +11,28 @@ public class Course {
     private int credits;
     private Teacher teacher;
     private int teacherId;
+    private CourseDAO courseDAO;
+    private int maxStudents;
+
+    public void addStudent (Student student) throws EnrollmentFullException, SQLException {
+        //get current enrollment first
+        int currentEnrolment = courseDAO.getNumStudentsInCourse(id);
+        if (currentEnrolment >= getMaxStudents()) {
+            throw new EnrollmentFullException("Course if full. Enrolment closed");
+        }
+        courseDAO.enrollStudentInCourse(id, student.getId());
+    }
+
+    static class EnrollmentFullException extends Exception {
+
+        private static final long serialVersionUID = 1L;
+
+        public EnrollmentFullException(String message) {
+        }
+    }
 
     public List<Course> getCourses() throws SQLException {
-        return CourseDAO.getCourses();
+        return courseDAO.getCourses();
     }
 
     public void addCourse() throws SQLException {
@@ -21,7 +40,7 @@ public class Course {
     }
     
     public boolean isValidCourse() {
-        return name != null && credits !=0;
+        return name != null && credits !=0 && name.trim().length() > 0;
     }
     
     public int getId() {
@@ -71,5 +90,20 @@ public class Course {
 
     public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
+    }
+
+
+    public void setCourseDAO(CourseDAO courseDAO) {
+        this.courseDAO = courseDAO;
+    }
+
+
+    public int getMaxStudents() {
+        return maxStudents;
+    }
+
+
+    public void setMaxStudents(int maxStudents) {
+        this.maxStudents = maxStudents;
     }
 }
