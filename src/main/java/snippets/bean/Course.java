@@ -11,7 +11,7 @@ public class Course {
     private int credits;
     private Teacher teacher;
     private int teacherId;
-    private CourseDAO courseDAO;
+    private CourseDAO courseDAO = new CourseDAO();
     private int maxStudents;
 
     public void addStudent (Student student) throws EnrollmentFullException, SQLException {
